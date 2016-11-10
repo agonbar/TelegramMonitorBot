@@ -9,4 +9,4 @@ Bot to retrieve data from linux systems to telegram conversations
 
 ## TODO
 
-Hostname, temperatures, public IP and disks
+Temperatures and mounted volumes

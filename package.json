@@ -14,7 +14,7 @@
   },
   "main": "index.js",
   "dependencies": {
-    "cpu-pct": "^0.1.0",
+    "external-ip": "^0.2.4",
     "node-telegram-bot-api": "*",
     "systeminformation": "^3.8.1"
   },
