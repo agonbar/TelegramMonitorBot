@@ -9,4 +9,4 @@ Bot to retrieve data from linux systems to telegram conversations
 
 ## TODO
 
-Temperatures and mounted volumes
+Better format temperatures and command mounted volumes

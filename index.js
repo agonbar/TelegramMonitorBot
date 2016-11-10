@@ -25,15 +25,16 @@ bot.onText(/\/state(.*)/, function(msg, match) {
 		var ramUsed = (memLoad.free/1073741824).toFixed(2);
 		var ramTotal = (memLoad.total/1073741824).toFixed(2);
 		var temp = ''
-		if(temps.main !== -1) { temp = "Temps->"+temps.cores }
-		console.log(temp);
+		if(temps.max !== -1) { temp = "Temps->"+temps.cores }
+		console.log(temps);
        		bot.sendMessage(msg.chat.id,
 			"===="+osInfo.hostname+"====\n"+
 			"Cpu ->"+cpuLoad.currentload.toFixed(2)+"%\n"+
 			"Ram->"+ramUsed+"/"+ramTotal+"Gb\n"+
 			"Disk->"+fsSpace.filter(function(x){return x.mount=="/"})[0].use+"%\n"+
 			"IP->"+ip+"\n"+
-			temp
+			temp+"\n"+
+			"=============="
 		);
 	});});});});});});
 });
