@@ -1,5 +1,5 @@
-# TelegramFlypoolBot
-Bot to retrieve data from the flypool miners
+# TelegramMonitorBot
+Bot to retrieve data from linux systems to telegram conversations
 
 ## Commands
 
