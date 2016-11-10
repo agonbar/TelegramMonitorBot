@@ -5,7 +5,7 @@ Bot to retrieve data from the flypool miners
 
 - /state - Hostname, cpu, ram, disk, temperatures data and public IP
 - /disks - Space in each mountpoint under /mnt or /media
-- /dockers
+- /dockers - List of docker containers and their state
 
 ## TODO
 
