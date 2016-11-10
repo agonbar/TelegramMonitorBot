@@ -1,0 +1,3 @@
+state - Hostname, cpu, ram, disk, temperatures data and public IP
+disks - Space in each mountpoint except loop devices
+dockers - List of docker containers and their state
