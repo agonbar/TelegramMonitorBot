@@ -1,0 +1,22 @@
+{
+  "name": "flypool-bot",
+  "version": "1.0.0",
+  "description": "Small bot for telegram",
+  "author": "Adrian Gonzalez Barbosa <adrian.gonzalez.barbosa@gmail.com>",
+  "contributors": [
+    {
+      "name": "Aitor Gonzalez Fernandez",
+      "email": "reimashi@gmail.com"
+    }
+  ],
+  "scripts": {
+    "debug": "nodemon index.js"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cpu-pct": "^0.1.0",
+    "node-telegram-bot-api": "*",
+    "systeminformation": "^3.8.1"
+  },
+  "license": "MIT"
+}
