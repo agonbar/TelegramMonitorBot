@@ -43,9 +43,19 @@ bot.onText(/\/dockers(.*)/, function(msg, match) {
         si.dockerContainers(function(containers) {
 		var response = "";
 		for (i in containers) {
-			response = response+"===="+containers[i].name+"====\n"+
-			"Image: "+containers[i].image+"\n"+
-			"State: "+containers[i].state+"\n"
+			response += "===="+containers[i].name+"====\n"+
+			"Image: "+containers[i].image+"\n";
+      for (j in containers[i].ports) {
+        if(containers[i].ports[j].PublicPort !== undefined) {
+          response += "Port: "+containers[i].ports[j].PublicPort+"\n";
+        }
+      }
+      for (j in containers[i].mounts) {
+        if(containers[i].mounts[j].propagation !== 'rprivate') {
+          response += "Mount: "+containers[i].mounts[j].Source+"\n";
+        }
+      }
+      console.log(containers[i].mounts);
 		};
 		response = response+"============";
                 bot.sendMessage(msg.chat.id, response);
