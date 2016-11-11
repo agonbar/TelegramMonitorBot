@@ -51,10 +51,10 @@ bot.onText(/\/dockers(.*)/, function(msg, match) {
         for (i in containers) {
             response += "====" + containers[i].name + "====\n" +
                 "Image: " + containers[i].image + "\n";
-            si.dockerContainerStats(containers[i].id, function(container) {
-                console.log(container.mem_usage);
-                response += "Ram usage: " + (container.mem_usage/1048576).toFixed(2) + "MB\n";
-                response += "CPU usage: " + container.cpu_percent.toFixed(2) + "%\n";
+            //si.dockerContainerStats(containers[i].id, function(container) {
+            //    console.log(container.mem_usage);
+            //    response += "Ram usage: " + (container.mem_usage/1048576).toFixed(2) + "MB\n";
+            //    response += "CPU usage: " + container.cpu_percent.toFixed(2) + "%\n";
                 for (j in containers[i].ports) {
                     if (containers[i].ports[j].PublicPort !== undefined) {
                         response += "Port: " + containers[i].ports[j].PublicPort + "\n";
@@ -67,7 +67,7 @@ bot.onText(/\/dockers(.*)/, function(msg, match) {
                 }
                 response = response + "============";
                 bot.sendMessage(msg.chat.id, response);
-            });
+            //});
         };
     });
 });
