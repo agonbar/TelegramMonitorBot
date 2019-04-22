@@ -93,10 +93,15 @@ func main() {
 
 		// =========== TEMPS =============
 		tempStat, err := host.SensorsTemperatures()
+		var tempLast string = "INITIAL"
 		msg.Text += fmt.Sprintf("Temps->")
 		for _, element := range tempStat {
 			if element.Temperature > 1 && !strings.HasSuffix(element.SensorKey, "max") && !strings.HasSuffix(element.SensorKey, "min")&& !strings.HasSuffix(element.SensorKey, "crit"){
-				msg.Text += fmt.Sprintf("[%s %.1f], ", element.SensorKey, element.Temperature)
+				if tempLast != strings.Split(element.SensorKey, "_")[0] {
+					tempLast = strings.Split(element.SensorKey, "_")[0]
+					msg.Text += fmt.Sprintf("\n  %s: ", tempLast)
+				}
+				msg.Text += fmt.Sprintf("%.1f ", element.Temperature)
 			}
 		}
 
