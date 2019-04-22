@@ -1,0 +1,8 @@
+version: '3'
+services:
+  all:
+    image: TelegramMonitorBot
+    container_name: TelegramMonitorBot
+    hostname: `$HOSTNAME`
+    build:
+      context: .
