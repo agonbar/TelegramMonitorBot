@@ -1,6 +1,6 @@
 version: '3'
 services:
-  all:
+  TelegramMonitorBot:
     image: TelegramMonitorBot
     container_name: TelegramMonitorBot
     hostname: `$HOSTNAME`
