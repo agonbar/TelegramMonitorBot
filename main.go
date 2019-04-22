@@ -36,6 +36,7 @@ func main() {
 
 	bot, err := tgbotapi.NewBotAPI(config.Token)
 	if err != nil {
+		log.Println("Is the token set?")
 		log.Panic(err)
 	}
 
@@ -92,8 +93,12 @@ func main() {
 
 		// =========== TEMPS =============
 		tempStat, err := host.SensorsTemperatures()
-		msg.Text += fmt.Sprintf("Temps->%s\n", tempStat)
-
+		msg.Text += fmt.Sprintf("Temps->")
+		for _, element := range tempStat {
+			if element.Temperature > 1 && !strings.HasSuffix(element.SensorKey, "max") && !strings.HasSuffix(element.SensorKey, "min")&& !strings.HasSuffix(element.SensorKey, "crit"){
+				msg.Text += fmt.Sprintf("[%s %.1f], ", element.SensorKey, element.Temperature)
+			}
+		}
 
 		// =========== IP =============
 		resp, err := http.Get("https://ifconfig.co")
@@ -102,7 +107,7 @@ func main() {
 		}
 		defer resp.Body.Close()
 		body, err := ioutil.ReadAll(resp.Body)
-		msg.Text += fmt.Sprintf("IP->%s", body)
+		msg.Text += fmt.Sprintf("\nIP->%s", body)
 
 
 		bot.Send(msg)
