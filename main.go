@@ -1,24 +1,27 @@
 package main
 
 import (
-	"os"
-	"fmt"
-	"log"
-	"strings"
-	"net/http"
-	"io/ioutil"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
+	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 
 	disk "github.com/shirou/gopsutil/disk"
-	mem "github.com/shirou/gopsutil/mem"
 	host "github.com/shirou/gopsutil/host"
 	load "github.com/shirou/gopsutil/load"
+	mem "github.com/shirou/gopsutil/mem"
 )
 
+/*
+ * Config storage of the telegram token in order to create the bot, to create one, http://t.me/@BotFather
+ */
 type Config struct {
-    Token string `json:"telegram_token"`
+	Token string `json:"telegram_token"`
 }
 
 func main() {
@@ -26,7 +29,7 @@ func main() {
 	// Read config file
 	jsonFile, err := os.Open("config.json")
 	if err != nil {
-	fmt.Println(err)
+		fmt.Println(err)
 	}
 	defer jsonFile.Close()
 
@@ -78,11 +81,11 @@ func main() {
 		for _, element := range partitions {
 			diskStat, err := disk.Usage(element.Mountpoint)
 			if strings.HasPrefix(update.Message.Text, "/disk") {
-				var template string = "==== %s ==== \nMount: %s \nTotal: %dGb \nUse: %.2f%% \n"		
+				template := "==== %s ==== \nMount: %s \nTotal: %dGb \nUse: %.2f%% \n"
 				msg.Text += fmt.Sprintf(template, element.Device, diskStat.Path, diskStat.Total/1073741824, diskStat.UsedPercent)
 			} else {
 				if diskStat.Path == "/" {
-					var template string = "Disk->%.2f%%\n"	
+					template := "Disk->%.2f%%\n"
 					msg.Text += fmt.Sprintf(template, diskStat.UsedPercent)
 				}
 			}
@@ -93,10 +96,10 @@ func main() {
 
 		// =========== TEMPS =============
 		tempStat, err := host.SensorsTemperatures()
-		var tempLast string = "INITIAL"
+		tempLast := "INITIAL"
 		msg.Text += fmt.Sprintf("Temps->")
 		for _, element := range tempStat {
-			if element.Temperature > 1 && !strings.HasSuffix(element.SensorKey, "max") && !strings.HasSuffix(element.SensorKey, "min")&& !strings.HasSuffix(element.SensorKey, "crit"){
+			if element.Temperature > 1 && !strings.HasSuffix(element.SensorKey, "max") && !strings.HasSuffix(element.SensorKey, "min") && !strings.HasSuffix(element.SensorKey, "crit") {
 				if tempLast != strings.Split(element.SensorKey, "_")[0] {
 					tempLast = strings.Split(element.SensorKey, "_")[0]
 					msg.Text += fmt.Sprintf("\n  %s: ", tempLast)
@@ -113,7 +116,6 @@ func main() {
 		defer resp.Body.Close()
 		body, err := ioutil.ReadAll(resp.Body)
 		msg.Text += fmt.Sprintf("\nIP->%s", body)
-
 
 		bot.Send(msg)
 	}
