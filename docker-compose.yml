@@ -1,8 +1,12 @@
 version: '3'
 services:
-  TelegramMonitorBot:
-    image: TelegramMonitorBot
+  telegrammonitorbot:
+    image: telegrammonitorbot
     container_name: TelegramMonitorBot
-    hostname: `$HOSTNAME`
+    hostname: "{{.Node.Hostname}}"
+    volumes:
+      - /etc/hostname:/etc/hostname
+      - /proc:/proc_host
+      - /sys:/sys
     build:
       context: .
